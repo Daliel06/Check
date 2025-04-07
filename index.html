@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تحليل الروابط وكلمات المرور</title>
+  <style>
+    body {
+      font-family: Arial;
+      direction: rtl;
+      text-align: right;
+      margin: 40px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <h2>تحليل الرابط وكلمة المرور</h2>
+
+  <label>أدخل الرابط:</label>
+  <input type="text" id="urlInput" placeholder="https://example.com">
+  <button onclick="analyzeURL()">تحليل الرابط</button>
+  <div id="urlResult" class="result"></div>
+
+  <label>أدخل كلمة المرور:</label>
+  <input type="password" id="passwordInput" placeholder="كلمة المرور">
+  <button onclick="analyzePassword()">تحليل كلمة المرور</button>
+  <div id="passwordResult" class="result"></div>
+
+  <script>
+    function analyzeURL() {
+      const url = document.getElementById("urlInput").value;
+      let message = "الرابط يبدو آمنًا.";
+
+      if (!url.startsWith("https://")) {
+        message = "تحذير: الرابط لا يستخدم HTTPS.";
+      } else if (url.length > 60 || url.includes("login") || url.includes("secure") || url.includes("@")) {
+        message = "الرابط قد يكون مشبوهًا، تأكد منه.";
+      }
+
+      document.getElementById("urlResult").innerText = message;
+    }
+
+    function analyzePassword() {
+      const pass = document.getElementById("passwordInput").value;
+      let strength = "قوية";
+
+      if (pass.length < 6 || !/[A-Z]/.test(pass) || !/[0-9]/.test(pass) || !/[!@#\$%\^&\*]/.test(pass)) {
+        strength = "ضعيفة، حاول استخدام حروف كبيرة وأرقام ورموز.";
+      }
+
+      document.getElementById("passwordResult").innerText = "قوة كلمة المرور: " + strength;
+    }
+  </script>
+</body>
+</html>
